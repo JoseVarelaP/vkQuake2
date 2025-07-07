@@ -398,7 +398,11 @@ void CocoaDestroyWindow(void)
 // attach Metal view to the window - return it so we can use it when creating Vulkan surface
 const void *CocoaAddMetalView(void)
 {
-	MetalView *mv = [[MetalView alloc] initWithFrame:[[window contentView] frame]];
-	[[window contentView] addSubview:mv];
-	return (__bridge const void *)mv;
+	CAMetalLayer* layer = [CAMetalLayer layer];
+	window.contentView.layer = layer;
+	window.contentView.wantsLayer = YES;
+	
+	//MetalView *mv = [[MetalView alloc] initWithFrame:[[window contentView] frame]];
+	//[[window contentView] addSubview:mv];
+	return (__bridge const void *)(layer);
 }

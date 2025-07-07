@@ -340,11 +340,13 @@ void Vkimp_GetInstanceExtensions(char **extensions, uint32_t *extCount)
 
 VkResult Vkimp_CreateSurface(void)
 {
+	CAMetalLayer* layer = (__bridge CAMetalLayer *)(CocoaAddMetalView());
+	
 	VkMetalSurfaceCreateInfoEXT surfaceCreateInfo = {
 		.sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT,
 		.pNext = NULL,
 		.flags = 0,
-		.pLayer = ((__bridge CAMetalLayer*)CocoaAddMetalView())
+		.pLayer = layer
 	};
 	
 	return vkCreateMetalSurfaceEXT(vk_instance, &surfaceCreateInfo, NULL, &vk_surface);
