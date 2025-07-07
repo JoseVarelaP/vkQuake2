@@ -399,6 +399,12 @@ void CocoaDestroyWindow(void)
 const void *CocoaAddMetalView(void)
 {
 	CAMetalLayer* layer = [CAMetalLayer layer];
+	
+	// Trick: Set the view content scale to 2.
+	// I have NO idea if this is THE WAY to do it, but it seems to do the trick for now.
+	// I need to figure how if there's a way to get it from the monitor.
+	[layer setContentsScale:2];
+	
 	window.contentView.layer = layer;
 	window.contentView.wantsLayer = YES;
 	
